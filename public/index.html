@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo Manager</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div class="hero__copy">
+          <p class="eyebrow">Focused planning for real life</p>
+          <h1>Build lists that feel calm, clear, and actually usable.</h1>
+          <p class="hero__text">
+            A refreshed Todo Manager with a warm dashboard, quick capture flow,
+            and enough structure to keep projects moving.
+          </p>
+        </div>
+        <div class="hero__card glass-panel">
+          <div class="hero__card-top">
+            <span class="status-dot"></span>
+            <span>Daily rhythm</span>
+          </div>
+          <div class="hero__metrics">
+            <article>
+              <strong id="hero-total-lists">0</strong>
+              <span>Lists</span>
+            </article>
+            <article>
+              <strong id="hero-total-tasks">0</strong>
+              <span>Tasks</span>
+            </article>
+            <article>
+              <strong id="hero-completed-tasks">0</strong>
+              <span>Done</span>
+            </article>
+          </div>
+        </div>
+      </header>
+
+      <main class="app-grid">
+        <section class="glass-panel auth-panel" id="auth-panel">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Access</p>
+              <h2>Sign in or create an account</h2>
+            </div>
+            <p class="muted">Everything stays in memory for this demo session.</p>
+          </div>
+
+          <div class="auth-toggle" role="tablist" aria-label="Authentication forms">
+            <button class="auth-tab active" data-auth-mode="login" type="button">Login</button>
+            <button class="auth-tab" data-auth-mode="signup" type="button">Sign up</button>
+          </div>
+
+          <form id="auth-form" class="stack">
+            <label class="field">
+              <span>Username</span>
+              <input id="username" name="username" autocomplete="username" required />
+            </label>
+
+            <label class="field">
+              <span>Password</span>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                autocomplete="current-password"
+                required
+              />
+            </label>
+
+            <button class="primary-button" id="auth-submit" type="submit">Login</button>
+          </form>
+        </section>
+
+        <section class="glass-panel dashboard-panel">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Workspace</p>
+              <h2 id="welcome-title">Your planning board</h2>
+            </div>
+            <div class="session-actions">
+              <span class="pill" id="session-pill">Guest mode</span>
+              <button class="ghost-button" id="logout-button" type="button">Log out</button>
+            </div>
+          </div>
+
+          <p class="banner" id="message-banner" aria-live="polite">
+            Sign in to start creating lists and tasks.
+          </p>
+
+          <div class="dashboard-layout">
+            <aside class="lists-panel">
+              <form id="list-form" class="inline-form">
+                <input
+                  id="list-name"
+                  name="listName"
+                  placeholder="Create a new list"
+                  maxlength="60"
+                />
+                <button class="primary-button" type="submit">Add list</button>
+              </form>
+
+              <div id="lists-container" class="lists-container"></div>
+            </aside>
+
+            <section class="detail-panel" id="detail-panel">
+              <div class="detail-panel__empty" id="empty-state">
+                <h3>Choose a list to get started</h3>
+                <p>Add a list, then capture tasks, mark progress, and keep the day moving.</p>
+              </div>
+
+              <div class="detail-panel__content hidden" id="detail-content">
+                <div class="detail-header">
+                  <div>
+                    <p class="eyebrow">Active list</p>
+                    <h3 id="active-list-name"></h3>
+                  </div>
+                  <button class="ghost-button danger-button" id="delete-list-button" type="button">
+                    Delete list
+                  </button>
+                </div>
+
+                <form id="todo-form" class="inline-form">
+                  <input
+                    id="todo-task"
+                    name="todoTask"
+                    placeholder="Add a task for this list"
+                    maxlength="120"
+                  />
+                  <button class="primary-button" type="submit">Add task</button>
+                </form>
+
+                <div id="todo-items" class="todo-items"></div>
+              </div>
+            </section>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="/app.js" defer></script>
+  </body>
+  </html>

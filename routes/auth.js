@@ -43,6 +43,10 @@ router.post("/signup", async (req, res) => {
 router.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
+  if (!username || !password) {
+    return res.status(400).json({ error: "Username and password required" });
+  }
+
   const user = users.find(u => u.username === username);
   if (!user) return res.status(401).json({ error: "Invalid credentials" });
 
@@ -55,21 +59,27 @@ router.post("/login", async (req, res) => {
     { expiresIn: "15min" }
   );
 
-  const refreshToken = jwt.sign({
-    userId: user.id,},
+  const refreshToken = jwt.sign(
+    { userId: user.id },
     REFRESH_SECRET,
     { expiresIn: "7d" }
   );
 
-   refreshTokens.push(refreshToken);
+  refreshTokens.push(refreshToken);
 
-   res.cookie("refreshToken", refreshToken, {
+  res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
-    secure: false, // Set to true in production with HTTPS
+    secure: process.env.NODE_ENV === "production",
     sameSite: "strict",
   });
 
-  res.json({ accessToken });
+  res.json({
+    accessToken,
+    user: {
+      id: user.id,
+      username: user.username,
+    },
+  });
 });
 
 module.exports = router;

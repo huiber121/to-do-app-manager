@@ -1,8 +1,8 @@
 // routes/lists.js
 const express = require("express");
+const { randomUUID } = require("crypto");
 const { lists, todos } = require("../data/store");
 const authMiddleware = require("../middleware/auth");
-const { v4: uuidv4 } = require("uuid");
 
 const router = express.Router();
 
@@ -33,7 +33,7 @@ router.post("/", authMiddleware, (req, res) => {
   }
 
   const list = {
-    id: uuidv4(),
+    id: randomUUID(),
     name: name.trim(),
     creatorId: req.user.userId,
   };
@@ -93,7 +93,7 @@ router.post("/:id/todos", authMiddleware, (req, res) => {
   }
 
   const todo = {
-    id: uuidv4(),
+    id: randomUUID(),
     task: req.body.task.trim(),
     completed: false,
     listId: list.id,

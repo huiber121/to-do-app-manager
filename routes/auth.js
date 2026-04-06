@@ -3,8 +3,8 @@ const {refreshTokens} = require("../data/store");
 const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { randomUUID } = require("crypto");
 const { users } = require("../data/store");
-const { v4: uuidv4 } = require("uuid");
 
 const router = express.Router();
 const REFRESH_SECRET = "refresh_secret";
@@ -29,7 +29,7 @@ router.post("/signup", async (req, res) => {
   const hashedPassword = await bcrypt.hash(password, 10);
 
   const user = {
-    id: uuidv4(),
+    id: randomUUID(),
     username,
     password: hashedPassword,
   };
